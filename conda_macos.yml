@@ -1,6 +1,7 @@
 name: camillagui
 channels:
 dependencies:
+  - pip
   - aiohttp
   - websocket-client
   - pip:

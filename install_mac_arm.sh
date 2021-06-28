@@ -1,4 +1,6 @@
-#!/bin/zsh
+#!/bin/sh
+source ~/opt/anaconda3/etc/profile.d/conda.sh
+
 conda env create -f conda_macos.yml
 
 conda activate camillagui

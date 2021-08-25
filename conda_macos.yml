@@ -5,6 +5,6 @@ dependencies:
   - aiohttp
   - websocket-client
   - pip:
-    - git+https://github.com/HEnquist/pycamilladsp.git@v0.5.0
-    - git+https://github.com/HEnquist/pycamilladsp-plot.git@v0.5.3
+    - git+https://github.com/HEnquist/pycamilladsp.git@v0.6.0
+    - git+https://github.com/HEnquist/pycamilladsp-plot.git@v0.6.0
     

@@ -1,13 +1,21 @@
 # Automated setup scrips for CamillaGUI
 
+Start by downloading the files in this repository. The easiest way is to download and uncompress [this .zip file](https://github.com/HEnquist/camilladsp-setupscripts/archive/refs/heads/master.zip).
+
+
 ## MacOS
 
 The setup uses Anaconda. A new conda environment named "camillagui" will be created.
 
 ### Install
-The script sets up the gui, and downloads the matching version of Camilladsp.
+The script sets up the conda environment and the gui. It also download the matching version of CamillaDSP.
 
-Clone this repository. Then run the install script:
+If the environment already exists, it will be updated with the new versions. If you for some reason want to keep the existing setup, then make a clone of the environment and give it a new name:
+```sh
+conda create --name camillagui_backup --clone  camillagui
+```
+
+Open a terminal, and navigate to the folder where the setup scripts are located. Run the install script:
 ```sh
 ./install_mac_intel.sh
 or

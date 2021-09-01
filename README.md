@@ -8,7 +8,7 @@ Start by downloading the files in this repository. The easiest way is to downloa
 The setup uses Anaconda. A new conda environment named "camillagui" will be created.
 
 ### Install
-The script sets up the conda environment and the gui. It also download the matching version of CamillaDSP.
+The script sets up the conda environment and the gui. It also downloads the matching version of CamillaDSP, selecting the Arm or Intel version automatically.
 
 If the environment already exists, it will be updated with the new versions. If you for some reason want to keep the existing setup, then make a clone of the environment and give it a new name:
 ```sh
@@ -17,9 +17,7 @@ conda create --name camillagui_backup --clone  camillagui
 
 Open a terminal, and navigate to the folder where the setup scripts are located. Run the install script:
 ```sh
-./install_mac_intel.sh
-or
-./install_mac_arm.sh
+./install_mac.sh
 ```
 
 Once the script finishes, the new environment needs to be activated. This step needs to be done every time a new terminal is opened.

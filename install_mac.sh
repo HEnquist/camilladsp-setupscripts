@@ -1,4 +1,23 @@
 #!/bin/sh
+SYSTEM=$(uname -s)
+if [ "$SYSTEM" != "Darwin" ]
+then
+    echo "This script must run on macOS!"
+    exit 1
+fi
+
+ARCH=$(uname -m)
+if [ "$ARCH" == "x86_64" ]
+then
+    ARCHIVE_NAME="camilladsp-macos-amd64.tar.gz"
+elif [ "$ARCH" == "aarch64" ]
+then
+    ARCHIVE_NAME="camilladsp-macos-aarch64.tar.gz"
+else
+  echo "Unsupported CPU type!"
+  exit 1
+fi
+
 if [ -f ~/opt/anaconda3/etc/profile.d/conda.sh ]; then
     echo "Using user conda"
     source ~/opt/anaconda3/etc/profile.d/conda.sh
@@ -49,12 +68,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+
+
 echo "--- Download CamillaDSP binary"
-if [ -f camilladsp-macos-amd64.tar.gz ]; then
+if [ -f $ARCHIVE_NAME ]; then
     echo "Deleting existing camilladsp archive"
-    rm camilladsp-macos-amd64.tar.gz
+    rm $ARCHIVE_NAME
 fi
-curl -LJO https://github.com/HEnquist/camilladsp/releases/download/v0.6.1/camilladsp-macos-amd64.tar.gz
+curl -LJO https://github.com/HEnquist/camilladsp/releases/download/v0.6.1/$ARCHIVE_NAME
 if [ $? -ne 0 ]; then
     echo "Failed to download camilladsp binary"
     exit 1
@@ -64,7 +85,7 @@ if [ -f camilladsp ]; then
     echo "Deleting existing camilladsp binary"
     rm camilladsp
 fi
-tar -xvf camilladsp-macos-amd64.tar.gz
+tar -xvf $ARCHIVE_NAME
 if [ $? -ne 0 ]; then
     echo "Failed to uncompress binary"
     exit 1

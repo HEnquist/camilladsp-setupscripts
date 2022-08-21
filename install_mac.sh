@@ -43,7 +43,7 @@ echo "--- Download Camillagui"
 if [ -f camillagui.zip ]; then
     rm camillagui.zip
 fi
-curl -LJO https://github.com/HEnquist/camillagui-backend/releases/download/v0.8.0/camillagui.zip
+curl -LJO https://github.com/HEnquist/camillagui-backend/releases/download/v1.0.0-rc6/camillagui.zip
 if [ $? -ne 0 ]; then
     echo "Failed to download gui"
     exit 1
@@ -75,7 +75,7 @@ if [ -f $ARCHIVE_NAME ]; then
     echo "Deleting existing camilladsp archive"
     rm $ARCHIVE_NAME
 fi
-curl -LJO https://github.com/HEnquist/camilladsp/releases/download/v0.6.1/$ARCHIVE_NAME
+curl -LJO https://github.com/HEnquist/camilladsp/releases/download/v1.0.1/$ARCHIVE_NAME
 if [ $? -ne 0 ]; then
     echo "Failed to download camilladsp binary"
     exit 1

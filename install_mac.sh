@@ -10,7 +10,7 @@ ARCH=$(uname -m)
 if [ "$ARCH" == "x86_64" ]
 then
     ARCHIVE_NAME="camilladsp-macos-amd64.tar.gz"
-elif [ "$ARCH" == "aarch64" ]
+elif [ "$ARCH" == "arm64" ]
 then
     ARCHIVE_NAME="camilladsp-macos-aarch64.tar.gz"
 else
@@ -18,15 +18,23 @@ else
   exit 1
 fi
 
-if [ -f ~/opt/anaconda3/etc/profile.d/conda.sh ]; then
-    echo "Using user conda"
-    source ~/opt/anaconda3/etc/profile.d/conda.sh
-elif [ -f /opt/anaconda3/etc/profile.d/conda.sh ]; then
-    echo "Using system conda"
-    source /opt/anaconda3/etc/profile.d/conda.sh
+if [[ -z $CONDA_PREFIX ]]; then
+    if [ -f ~/opt/anaconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user Anaconda"
+        source ~/opt/anaconda3/etc/profile.d/conda.sh
+    elif [ -f /opt/anaconda3/etc/profile.d/conda.sh ]; then
+        echo "Using system Anaconda"
+        source /opt/anaconda3/etc/profile.d/conda.sh
+    elif [ -f ~/opt/miniconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user miniconda"
+        source ~/opt/miniconda3/etc/profile.d/conda.sh
+    else
+        echo "No conda found"
+        exit 1
+    fi
 else
-    echo "No conda found"
-    exit 1
+    echo "Using conda from $CONDA_PREFIX"
+    source $CONDA_PREFIX/etc/profile.d/conda.sh
 fi
 
 conda activate camillagui

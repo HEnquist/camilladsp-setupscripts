@@ -4,17 +4,29 @@ Start by downloading the files in this repository. The easiest way is to downloa
 
 ## Choose Python package manager
 Two different installer scripts are available,
-one using the [conda](link) package manager and one using python [venv](link).
+one using the [`conda`](#conda) package manager and one using python [`venv`](#venv).
 
-Both options are available on both Linux and MacOS,
-and both have pros and cons.
-Which one is the best choice comes down to personal preference.
+Both options are available on Linux, Windows and MacOS,
+and both are suitable for running the CamillaDSP GUI.
+
+Reasons to choose conda:
+- conda is already installed.
+- The system does not have Python 3.8 or later installed.
+
+Reasons to choose venv:
+- Python 3.8 or newer is already installed.
+- Minimizing disk space usage is important.
 
 ### Conda
 
 The conda script can use Anaconda, miniconda or miniforge. A new conda environment named "camillagui" will be created.
 
 #### Install
+Ensure that conda is installed. Any distribution will suffice.
+- [Miniforge](https://github.com/conda-forge/miniforge) - Community-driven minimal installer.
+- [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) - Minimal installer by Anaconda.
+- [Anaconda](https://www.anaconda.com/download) - Full Anaconda distribution. Much larger than needed, only use if already installed.
+
 The script sets up the conda environment and the gui. It also downloads the matching version of CamillaDSP, selecting the Arm or Intel version automatically.
 
 If the environment already exists, it will be updated with the new versions. If you for some reason want to keep the existing setup, then make a clone of the environment and give it a new name:
@@ -27,37 +39,45 @@ Open a terminal, and navigate to the folder where the setup scripts are located.
 ./install_conda.sh
 ```
 
-Once the script finishes, the new environment needs to be activated. This step needs to be done every time a new terminal is opened.
-```sh
-conda activate camillagui
-```
+The script creates the directory `camilladsp` in the user home directory,
+with the following subdirectories:
+- `bin`: The CamillaDSP executable is placed here
+- `coeffs`: For FIR coefficient files
+- `configs`: For config files
+- `gui`: The gui
 
-If needed, edit the gui default configuration (camillagui/config/camillagui.yml).
+Check the gui default configuration (camilladsp/gui/config/camillagui.yml)
+and edit as needed.
+
 
 #### Starting the gui
 
 First start camilladsp if it's not already running.
- ```sh
-./camilladsp your_config.yml -p1234 -w
-```
-
-Activate the conda environment.
 ```sh
-conda activate camillagui
+~/camilladsp/bin/camilladsp your_config.yml -p1234 -w
 ```
 
 Change to the "camillagui" folder, and run the backend.
 ```sh
-cd camillagui
+cd ~/camilladsp/gui
+conda run -n camillagui python main.py
+```
+The first part, `conda run -n {env} {commmand}` makes conda run `{command}` in the environment `{env}`.
+
+The gui should now be available at http://localhost:5000
+
+Note that it is also possible to manually activate the environment before starting the gui:
+```sh
+conda activate camillagui
+cd ~/camilladsp/gui
 python main.py
 ```
-
-The backend should now be available at http://localhost:5000
 
 
 ### venv
 
-This uses the venv module that is part of the standard library in Python. 
+This uses the `venv` module that is part of the standard library in Python.
+Python 3.8 or later is required.
 
 #### Install
 The script creates a new virtual environment and downloads the gui. It also downloads the matching version of CamillaDSP, selecting the Arm or Intel version automatically.
@@ -69,22 +89,30 @@ Open a terminal, and navigate to the folder where the setup scripts are located.
 ./install_venv.sh
 ```
 
+The script creates the directory `camilladsp` in the user home directory,
+with the following subdirectories:
+- `bin`: The CamillaDSP executable is placed here
+- `camillagui_venv`: The Python virtual environment
+- `coeffs`: For FIR coefficient files
+- `configs`: For config files
+- `gui`: The gui
 
-If needed, edit the gui default configuration (camillagui/config/camillagui.yml).
+Check the gui default configuration (camilladsp/gui/config/camillagui.yml)
+and edit as needed.
 
 #### Starting the gui
 
 First start camilladsp if it's not already running.
- ```sh
-./camilladsp your_config.yml -p1234 -w
+```sh
+~/camilladsp/bin/camilladsp ~/camilladsp/configs/your_config.yml -p1234 -w
 ```
 
 Change to the "camillagui" folder, and run the backend.
 The virtual environment is activated by simply using
 the python executable of the environment:
 ```sh
-cd camillagui
-path/to/venv/bin/python main.py
+cd camilladsp/gui
+~/camilladsp/camillagui_venv/bin/python main.py
 ```
 
-The backend should now be available at http://localhost:5000
+The gui should now be available at http://localhost:5000

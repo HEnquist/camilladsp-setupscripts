@@ -4,10 +4,6 @@ setlocal
 set "GUI_TAG=v2.0.0-alpha2"
 set "CDSP_TAG=v2.0.0-alpha2"
 
-for /f "usebackq tokens=*" %%i in (`ver`) do (
-    set "SYSTEM=%%i"
-)
-
 set "ARCHIVE_NAME=camilladsp-windows-amd64.zip"
 
 if "%~1"=="" (

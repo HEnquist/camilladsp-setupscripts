@@ -9,6 +9,8 @@ one using the [`conda`](#conda) package manager and one using python [`venv`](#v
 Both options are available on Linux, Windows and MacOS,
 and both are suitable for running the CamillaDSP GUI.
 
+TODO: add setup script for conda on Windows.
+
 Reasons to choose conda:
 - conda is already installed.
 - The system does not have Python 3.8 or later installed.
@@ -84,9 +86,17 @@ The script creates a new virtual environment and downloads the gui. It also down
 
 If the environment already exists, it will be updated with the new versions.
 
-Open a terminal, and navigate to the folder where the setup scripts are located. Run the install script:
+Open a terminal, and navigate to the folder where the setup scripts are located.
+Then run the install script.
+
+On Linux or MacOS:
 ```sh
 ./install_venv.sh
+```
+
+On Windows (Command Prompt or PowerShell):
+```
+install_venv.bat
 ```
 
 The script creates the directory `camilladsp` in the user home directory,
@@ -103,16 +113,42 @@ and edit as needed.
 #### Starting the gui
 
 First start camilladsp if it's not already running.
+
+Linux and MacOS:
 ```sh
 ~/camilladsp/bin/camilladsp ~/camilladsp/configs/your_config.yml -p1234 -w
 ```
 
+Windows PowerShell:
+```sh
+~\camilladsp\bin\camilladsp.exe ~\camilladsp\configs\your_config.yml -p1234 -w
+```
+
+Windows Command Prompt:
+```
+%userprofile%\camilladsp\bin\camilladsp.exe %userprofile%\camilladsp\configs\your_config.yml -p1234 -w
+```
+
 Change to the "camillagui" folder, and run the backend.
 The virtual environment is activated by simply using
-the python executable of the environment:
+the python executable of the environment.
+
+Linux or MacOS:
 ```sh
-cd camilladsp/gui
+cd ~/camilladsp/gui
 ~/camilladsp/camillagui_venv/bin/python main.py
 ```
 
-The gui should now be available at http://localhost:5000
+Windows PowerShell:
+```
+cd ~\camilladsp\gui
+~\camilladsp\camillagui_venv\Scripts\python.exe main.py
+```
+
+Windows Command Prompt:
+```
+cd %userprofile%\camilladsp\gui
+%userprofile%\camilladsp\camillagui_venv\Scripts\python.exe main.py
+```
+
+The gui should now be available at http://localhost:5005

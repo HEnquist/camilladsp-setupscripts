@@ -9,8 +9,6 @@ one using the [`conda`](#conda) package manager and one using python [`venv`](#v
 Both options are available on Linux, Windows and MacOS,
 and both are suitable for running the CamillaDSP GUI.
 
-TODO: add setup script for conda on Windows.
-
 Reasons to choose conda:
 - conda is already installed.
 - The system does not have Python 3.8 or later installed.
@@ -54,16 +52,22 @@ and edit as needed.
 
 #### Starting the gui
 
-First start camilladsp if it's not already running.
-```sh
-~/camilladsp/bin/camilladsp your_config.yml -p1234 -w
-```
+First [start camilladsp](#start-camilladsp) if it's not already running.
 
-Change to the "camillagui" folder, and run the backend.
+Change to the "camilladsp/gui" folder, and run the backend. 
+
+Linux or MacOS. Also Windows using the Miniforge/Miniconda/Anaconda PowerShell:
 ```sh
 cd ~/camilladsp/gui
 conda run -n camillagui python main.py
 ```
+
+Windows Command Prompt (use the Miniforge/Miniconda/Anaconda Prompt):
+```sh
+cd %userprofile%\camilladsp\gui
+conda run -n camillagui python main.py
+```
+
 The first part, `conda run -n {env} {commmand}` makes conda run `{command}` in the environment `{env}`.
 
 The gui should now be available at http://localhost:5000
@@ -95,7 +99,7 @@ On Linux or MacOS:
 ```
 
 On Windows (Command Prompt or PowerShell):
-```
+```sh
 install_venv.bat
 ```
 
@@ -112,7 +116,37 @@ and edit as needed.
 
 #### Starting the gui
 
-First start camilladsp if it's not already running.
+First [start camilladsp](#start-camilladsp) if it's not already running.
+
+Change to the "camilladsp/gui" folder, and run the backend.
+The virtual environment is activated by simply using
+the python executable of the environment.
+
+Linux or MacOS:
+```sh
+cd ~/camilladsp/gui
+~/camilladsp/camillagui_venv/bin/python main.py
+```
+
+Windows PowerShell:
+```sh
+cd ~\camilladsp\gui
+~\camilladsp\camillagui_venv\Scripts\python.exe main.py
+```
+
+Windows Command Prompt:
+```sh
+cd %userprofile%\camilladsp\gui
+%userprofile%\camilladsp\camillagui_venv\Scripts\python.exe main.py
+```
+
+The gui should now be available at http://localhost:5005
+
+
+## Start CamillaDSP
+These are the recommended commands to start CamillaDSP for use with the GUI. 
+
+TODO add statefile!
 
 Linux and MacOS:
 ```sh
@@ -125,30 +159,6 @@ Windows PowerShell:
 ```
 
 Windows Command Prompt:
-```
+```sh
 %userprofile%\camilladsp\bin\camilladsp.exe %userprofile%\camilladsp\configs\your_config.yml -p1234 -w
 ```
-
-Change to the "camillagui" folder, and run the backend.
-The virtual environment is activated by simply using
-the python executable of the environment.
-
-Linux or MacOS:
-```sh
-cd ~/camilladsp/gui
-~/camilladsp/camillagui_venv/bin/python main.py
-```
-
-Windows PowerShell:
-```
-cd ~\camilladsp\gui
-~\camilladsp\camillagui_venv\Scripts\python.exe main.py
-```
-
-Windows Command Prompt:
-```
-cd %userprofile%\camilladsp\gui
-%userprofile%\camilladsp\camillagui_venv\Scripts\python.exe main.py
-```
-
-The gui should now be available at http://localhost:5005

@@ -12,24 +12,40 @@ if "%~1"=="" (
     set "INSTALL_ROOT=%~1"
 )
 
-set "VENV_PATH=%INSTALL_ROOT%\camillagui_venv"
-
-echo Creating venv at %VENV_PATH%
-python -m venv "%VENV_PATH%"
-if !errorlevel!==0 (
-    echo Environment created
+if not "%CONDA_PREFIX%"=="" (
+    echo Using conda from %CONDA_PREFIX%
+    set "CONDA_ROOT=%CONDA_PREFIX%"
 ) else (
-    echo Failed to create environment
-    exit /b 1
+    echo CONDA_PREFIX environment variable is not set, looking for conda in standard locations
+    if exist %USERPROFILE%\miniforge3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\miniforge3"     
+    ) else if exist %USERPROFILE%\miniconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\miniconda3"
+    ) else if exist %USERPROFILE%\Anaconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\Anaconda3"
+    ) else if exist %ProgramData%\miniforge3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\miniforge3"  
+    ) else if exist %ProgramData%\miniconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\miniconda3" 
+    ) else if exist %ProgramData%\Anaconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\Anaconda3"     
+    ) else (
+        echo No conda found!
+        exit /b 1
+    )
+            
 )
+echo Using conda found at !CONDA_ROOT!
 
-echo Installing Python libraries
-"%VENV_PATH%\Scripts\python.exe" -m pip install -r requirements.txt
-if !errorlevel!==0 (
-    echo Libraries installed
+call "%CONDA_ROOT%\Scripts\activate.bat"
+call "%CONDA_ROOT%\Scripts\activate.bat" camillagui
+if !errorlevel! equ 0 (
+    echo Updating existing environment
+    call conda env update -f cdsp_conda.yml --prune
 ) else (
-    echo Failed to install libraries
-    exit /b 1
+    echo Creating new environment
+    call conda env create -f cdsp_conda.yml
+    call activate camillagui
 )
 
 echo --- Create folders

@@ -6,5 +6,5 @@ dependencies:
   - pip
   - aiohttp
   - pip:
-    - "git+https://github.com/HEnquist/pycamilladsp.git@v2.0.0-alpha2"
-    - "camilladsp-plot[plot]@git+https://github.com/HEnquist/pycamilladsp-plot.git@v2.0.0-alpha2"
+    - "git+https://github.com/HEnquist/pycamilladsp.git@v2.0.0"
+    - "camilladsp-plot[plot]@git+https://github.com/HEnquist/pycamilladsp-plot.git@v2.0.0"

@@ -17,6 +17,8 @@ Reasons to choose venv:
 - Python 3.8 or newer is already installed.
 - Minimizing disk space usage is important.
 
+After making a choice, follow the instructions in either the [Conda](#conda) or [venv](#venv) section.
+
 ### Conda
 
 The conda script can use Anaconda, miniconda or miniforge. A new conda environment named "camillagui" will be created.
@@ -144,21 +146,24 @@ The gui should now be available at http://localhost:5005
 
 
 ## Start CamillaDSP
-These are the recommended commands to start CamillaDSP for use with the GUI. 
+These are the recommended commands to start CamillaDSP for use with the GUI.
+This uses the statefile to store the path to the active config file.
+Adjust the path the the config file if needed.
 
-TODO add statefile!
+Note that it is also possible to specify a config file directly when starting CamillaDSP.
+This prevents permanently switching config file via the gui.
 
 Linux and MacOS:
 ```sh
-~/camilladsp/bin/camilladsp ~/camilladsp/configs/your_config.yml -p1234 -w
+~/camilladsp/bin/camilladsp -p1234 -w -s ~/camilladsp/statefile.yml
 ```
 
 Windows PowerShell:
 ```sh
-~\camilladsp\bin\camilladsp.exe ~\camilladsp\configs\your_config.yml -p1234 -w
+~\camilladsp\bin\camilladsp.exe -p1234 -w -s ~\camilladsp\statefile.yml
 ```
 
 Windows Command Prompt:
 ```sh
-%userprofile%\camilladsp\bin\camilladsp.exe %userprofile%\camilladsp\configs\your_config.yml -p1234 -w
+%userprofile%\camilladsp\bin\camilladsp.exe -p1234 -w -s %userprofile%\camilladsp\statefile.yml
 ```

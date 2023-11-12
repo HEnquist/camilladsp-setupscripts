@@ -1,8 +1,8 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-set "GUI_TAG=v2.0.0-alpha2"
-set "CDSP_TAG=v2.0.0-alpha2"
+set "GUI_TAG=v2.0.0"
+set "CDSP_TAG=v2.0.0"
 
 set "ARCHIVE_NAME=camilladsp-windows-amd64.zip"
 

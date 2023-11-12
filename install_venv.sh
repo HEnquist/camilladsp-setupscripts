@@ -1,6 +1,6 @@
 #!/bin/sh
-GUI_TAG="v2.0.0-alpha2"
-CDSP_TAG="v2.0.0-alpha2"
+GUI_TAG="v2.0.0"
+CDSP_TAG="v2.0.0"
 
 SYSTEM=$(uname -s)
 ARCH=$(uname -m)

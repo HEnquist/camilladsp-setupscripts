@@ -167,3 +167,9 @@ Windows Command Prompt:
 ```sh
 %userprofile%\camilladsp\bin\camilladsp.exe -p1234 -w -s %userprofile%\camilladsp\statefile.yml
 ```
+
+# Setup of USB gadget mode
+**NOTE** This is currently not updated for the latest versions of CamillDSP and Raspberry Pi OS.
+
+The `install_gadget_gui.sh` script installs camilladsp with the GUI,
+as well as configures the USB gadget mode on a Raspberry Pi.

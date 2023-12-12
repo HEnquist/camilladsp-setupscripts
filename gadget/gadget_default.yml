@@ -1,0 +1,19 @@
+---
+devices:
+  samplerate: 96000
+  chunksize: 4096
+  target_level: 4096
+  enable_rate_adjust: true
+  enable_resampling: false
+  adjust_period: 10
+  capture:
+    type: Alsa
+    channels: 2
+    device: "hw:UAC2Gadget"
+    format: S32LE
+    retry_on_error: true
+  playback:
+    type: Alsa
+    channels: 2
+    device: "default"
+    format: S32LE

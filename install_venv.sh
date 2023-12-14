@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 GUI_TAG="v2.0.0"
 CDSP_TAG="v2.0.0"
 
@@ -12,7 +12,14 @@ then
         ARCHIVE_NAME="camilladsp-linux-amd64.tar.gz"
     elif [ "$ARCH" == "aarch64" ]
     then
-        ARCHIVE_NAME="camilladsp-linux-aarch64.tar.gz"
+        # Detect 32-bit OS with 64-bit kernel (e.g. Raspbian)
+        LONG_BIT=$(getconf LONG_BIT)
+        if [ "$LONG_BIT" == "32" ]
+        then
+            ARCHIVE_NAME="camilladsp-linux-armv7.tar.gz"
+        else
+            ARCHIVE_NAME="camilladsp-linux-aarch64.tar.gz"
+        fi
     else
         echo "Unsupported CPU type $ARCH!"
         exit 1

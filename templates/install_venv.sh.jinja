@@ -1,0 +1,24 @@
+{# Full setup on Linux and MacOS using venv -#}
+{% extends "install_base.sh.jinja" %}
+
+{% block setup_python_env %}
+VENV_PATH="$INSTALL_ROOT/camillagui_venv"
+
+echo "Creating venv at $VENV_PATH"
+python -m venv "$VENV_PATH"
+if [ $? -eq 0 ]; then
+    echo "Environment created"
+else
+    echo "Failed to create environment"
+    exit 1
+fi
+
+echo "Installing Python libraries"
+$VENV_PATH/bin/python -m pip install -r requirements.txt
+if [ $? -eq 0 ]; then
+    echo "Libraries installed"
+else
+    echo "Failed to install libraries"
+    exit 1
+fi
+{% endblock setup_python_env %}

@@ -1,0 +1,24 @@
+{# Full setup on Windows using venv -#}
+{% extends "install_base.bat.jinja" %}
+
+{% block setup_python_env %}
+set "VENV_PATH=%INSTALL_ROOT%\camillagui_venv"
+
+echo Creating venv at %VENV_PATH%
+python -m venv "%VENV_PATH%"
+if !errorlevel!==0 (
+    echo Environment created
+) else (
+    echo Failed to create environment
+    exit /b 1
+)
+
+echo Installing Python libraries
+"%VENV_PATH%\Scripts\python.exe" -m pip install -r requirements.txt
+if !errorlevel!==0 (
+    echo Libraries installed
+) else (
+    echo Failed to install libraries
+    exit /b 1
+)
+{% endblock setup_python_env %}

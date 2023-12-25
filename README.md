@@ -1,6 +1,14 @@
 # Automated setup scrips for CamillaGUI
 
-Start by downloading the files in this repository. The easiest way is to download and uncompress [this .zip file](https://github.com/HEnquist/camilladsp-setupscripts/archive/refs/heads/master.zip).
+## Where are the scripts?
+Go to the latest version under "releases" and download the archive that suits your system (TODO!).
+
+
+The repository does not contain any ready-to-use scripts.
+Instead it contains templates used to generate them.
+This process runs automatically for each release (TODO!),
+and the generated scripts are attached to the release.
+
 
 ## Choose Python package manager
 Three different installer scripts are available,
@@ -54,3 +62,10 @@ Windows Command Prompt:
 
 The `install_gadget_gui.sh` script installs camilladsp with the GUI,
 as well as configures the USB gadget mode on a Raspberry Pi.
+
+# Development: render the templates
+This repository contains jinja2 templates used to create automated setup scripts for CamillaGUI.
+The templates are stored in `templates/`.
+
+To render the templates, run the Python script `build_release.py`.
+When rendering, the versions of the various components are taken from the file `versions.yml`.

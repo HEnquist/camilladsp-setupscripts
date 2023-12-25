@@ -10,10 +10,6 @@ if "%~1"=="" (
     set "INSTALL_ROOT=%~1"
 )
 
-{% block setup_python_env %}
-echo Assuming Python environment is already set up
-{% endblock setup_python_env %}
-
 echo --- Create folders
 if not exist "%INSTALL_ROOT%\configs" mkdir "%INSTALL_ROOT%\configs"
 if not exist "%INSTALL_ROOT%\coeffs" mkdir "%INSTALL_ROOT%\coeffs"
@@ -55,8 +51,9 @@ if !errorlevel! neq 0 (
     exit /b 1
 )
 
-{% block finalize %}
-{% endblock finalize %}
+{% block setup_python_env %}
+echo Assuming Python environment is already set up
+{% endblock setup_python_env %}
 
 echo All done!
 

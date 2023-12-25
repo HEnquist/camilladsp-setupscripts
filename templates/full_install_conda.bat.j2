@@ -36,4 +36,12 @@ if !errorlevel! equ 0 (
     call conda env create -f cdsp_conda.yml
     call activate camillagui
 )
+
+echo.
+echo "Basic setup ready."
+echo "Edit the gui config file at:"
+echo "%INSTALL_ROOT%\gui\config\camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd %INSTALL_ROOT%\gui"
+echo "> conda run -n camillagui python main.py"
 {% endblock setup_python_env %}

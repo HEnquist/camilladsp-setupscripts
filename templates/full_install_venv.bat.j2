@@ -21,4 +21,12 @@ if !errorlevel!==0 (
     echo Failed to install libraries
     exit /b 1
 )
+
+echo.
+echo "Basic setup ready."
+echo "Edit the gui config file at:"
+echo "%INSTALL_ROOT%\gui\config\camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd %INSTALL_ROOT%\gui"
+echo "> %INSTALL_ROOT%\camillagui_venv\Scripts\python.exe main.py"
 {% endblock setup_python_env %}

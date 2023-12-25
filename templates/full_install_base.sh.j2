@@ -4,29 +4,56 @@
 SYSTEM=$(uname -s)
 ARCH=$(uname -m)
 
-if [ "$SYSTEM" == "Linux" ]
+if [ "$SYSTEM" = "Linux" ]
 then
-    if [ "$ARCH" == "x86_64" ]
+    if [ "$ARCH" = "x86_64" ]
     then
-        ARCHIVE_NAME="camilladsp-linux-amd64.tar.gz"
-    elif [ "$ARCH" == "aarch64" ]
+        LONG_BIT=$(getconf LONG_BIT)
+        if [ "$LONG_BIT" = "32" ]
+        then
+            echo "Running on Linux, amd64, with 32-bit userland"
+            echo "Error, no binary available for this combination!"
+            exit 1
+        else
+            echo "Running on Linux, amd64"
+            ARCHIVE_NAME="camilladsp-linux-amd64.tar.gz"
+        fi
+    elif [ "$ARCH" = "aarch64" ]
     then
-        ARCHIVE_NAME="camilladsp-linux-aarch64.tar.gz"
+        LONG_BIT=$(getconf LONG_BIT)
+        if [ "$LONG_BIT" = "32" ]
+        then
+            echo "Running on Linux, aarch64, with 32-bit userland"
+            ARCHIVE_NAME="camilladsp-linux-armv7.tar.gz"
+        else
+            echo "Running on Linux, aarch64"
+            ARCHIVE_NAME="camilladsp-linux-aarch64.tar.gz"
+        fi
+    elif [ "$ARCH" = "armv7l" ]
+    then
+        echo "Running on Linux, armv7l"
+        ARCHIVE_NAME="camilladsp-linux-armv7.tar.gz"
+    elif [ "$ARCH" = "armv6l" ]
+    then
+        echo "Running on Linux, armv6l"
+        ARCHIVE_NAME="camilladsp-linux-armv6.tar.gz"
     else
-        echo "Unsupported CPU type $ARCH!"
+        echo "There is no prebuilt binary available for CPU type $ARCH! on Linux!"
         exit 1
     fi
-elif [ "$SYSTEM" == "Darwin" ]
+elif [ "$SYSTEM" = "Darwin" ]
 then
     ARCH=$(uname -m)
-    if [ "$ARCH" == "x86_64" ]
+    if [ "$ARCH" = "x86_64" ]
     then
+        echo "Running on MacOS, amd64"
         ARCHIVE_NAME="camilladsp-macos-amd64.tar.gz"
     elif [ "$ARCH" == "arm64" ]
     then
+        echo "Running on MacOS, aarch64"
         ARCHIVE_NAME="camilladsp-macos-aarch64.tar.gz"
     else
-        echo "Unsupported CPU type $ARCH!"
+        echo "There is no prebuilt binary available for CPU type $ARCH! on MacOS!"
         exit 1
     fi
 else
@@ -34,26 +61,31 @@ else
     exit 1
 fi
 
-if [[ -z $1 ]]; then
+if [ -z $1 ]; then
     INSTALL_ROOT="$HOME/camilladsp"
 else
     INSTALL_ROOT=$1
 fi
 
 echo "--- Create folders"
-mkdir -p "$INSTALL_ROOT/configs"
+mkdir -p $INSTALL_ROOT/configs
 if [ $? -ne 0 ]; then
     echo "Failed to create config dir"
     exit 1
 fi
-mkdir -p "$INSTALL_ROOT/coeffs"
+mkdir -p $INSTALL_ROOT/coeffs
 if [ $? -ne 0 ]; then
     echo "Failed to create coeffs dir"
     exit 1
 fi
-mkdir -p "$INSTALL_ROOT/bin"
+mkdir -p $INSTALL_ROOT/bin
 if [ $? -ne 0 ]; then
     echo "Failed to create bin dir"
+    exit 1
+fi
+mkdir -p "$INSTALL_ROOT/gui"
+if [ $? -ne 0 ]; then
+    echo "Failed to create gui dir"
     exit 1
 fi
 
@@ -66,18 +98,31 @@ if [ $? -ne 0 ]; then
     echo "Failed to download gui"
     exit 1
 fi
+
 echo "--- Uncompress Camillagui to $INSTALL_ROOT/gui"
-mkdir camillagui
-unzip -o camillagui.zip -d "$INSTALL_ROOT/gui"
-if [ $? -ne 0 ]; then
-    echo "Failed to uncompress gui"
+if command -v unar &> /dev/null
+then
+    unar -f camillagui.zip -o "$INSTALL_ROOT/gui"
+    if [ $? -ne 0 ]; then
+        echo "Failed to uncompress gui"
+        exit 1
+    fi
+elif command -v unzip &> /dev/null
+then
+    unzip -o camillagui.zip -d "$INSTALL_ROOT/gui"
+    if [ $? -ne 0 ]; then
+        echo "Failed to uncompress gui"
+        exit 1
+    fi
+else
+    echo "Error, no tool for unpacking .zip found, install either unzip or unar and try again"
     exit 1
 fi
 
 echo "--- Download CamillaDSP binary"
 if [ -f $ARCHIVE_NAME ]; then
     echo "Deleting existing camilladsp archive"
-    rm $ARCHIVE_NAME 
+    rm $ARCHIVE_NAME
 fi
 curl -LJO https://github.com/HEnquist/camilladsp/releases/download/{{ camilladsp_tag }}/$ARCHIVE_NAME
 if [ $? -ne 0 ]; then
@@ -87,15 +132,15 @@ fi
 echo "--- Uncompress CamillaDSP binary"
 if [ -f camilladsp ]; then
     echo "Deleting existing camilladsp binary"
-    rm camilladsp 
+    rm camilladsp
 fi
 tar -xvf $ARCHIVE_NAME
 if [ $? -ne 0 ]; then
     echo "Failed to uncompress binary"
     exit 1
 fi
-echo "--- Moving CamillaDSP binary to $INSTALL_ROOT/bin"
-mv camilladsp "$INSTALL_ROOT/bin"
+echo "--- Moving CamillaDSP binary to $INSTALL_ROOT/bin/"
+mv camilladsp "$INSTALL_ROOT/bin/"
 if [ $? -ne 0 ]; then
     echo "Failed to move binary"
     exit 1

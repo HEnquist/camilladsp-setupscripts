@@ -2,7 +2,11 @@
 {% extends "full_install_base.sh.j2" %}
 
 {% block setup_python_env %}
-echo "Assuming that python and poetry are already installed"
+if ! command -v poetry &> /dev/null
+then
+    echo "poetry is not available, please install it and try again."
+    exit 1
+fi
 
 echo "Running 'poetry update' to create or update environment"
 cp pyproject.toml $INSTALL_ROOT/gui/

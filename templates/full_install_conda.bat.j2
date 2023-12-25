@@ -1,5 +1,5 @@
 {# Full setup on Windows using conda -#}
-{% extends "install_base.bat.jinja" %}
+{% extends "full_install_base.bat.j2" %}
 
 {% block setup_python_env %}
 if not "%CONDA_PREFIX%"=="" (
@@ -23,7 +23,6 @@ if not "%CONDA_PREFIX%"=="" (
         echo No conda found!
         exit /b 1
     )
-            
 )
 echo Using conda found at !CONDA_ROOT!
 

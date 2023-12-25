@@ -1,0 +1,18 @@
+{# Full setup on Linux and MacOS using poetry -#}
+{% extends "full_install_base.sh.j2" %}
+
+{% block setup_python_env %}
+echo "Assuming that python and poetry are already installed"
+
+echo "Running 'poetry update' to create or update environment"
+cp pyproject.toml $INSTALL_ROOT/gui/
+cd $INSTALL_ROOT/gui
+poetry update
+
+echo "\nBasic setup ready."
+echo "Edit the gui config file at:"
+echo "$INSTALL_ROOT/gui/config/camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd $INSTALL_ROOT/gui"
+echo "> poetry run python main.py"
+{% endblock setup_python_env %}

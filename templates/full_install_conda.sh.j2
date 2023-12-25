@@ -1,5 +1,5 @@
 {# Full setup on Linux and MacOS using conda -#}
-{% extends "install_base.sh.jinja" %}
+{% extends "full_install_base.sh.j2" %}
 
 {% block setup_python_env %}
 if [[ -z $CONDA_PREFIX ]]; then
@@ -43,4 +43,11 @@ else
     conda env create -f cdsp_conda.yml
     conda activate camillagui
 fi
+
+echo "\nBasic setup ready."
+echo "Edit the gui config file at:"
+echo "$INSTALL_ROOT/gui/config/camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd $INSTALL_ROOT/gui"
+echo "> conda run -n camillagui python main.py"
 {% endblock setup_python_env %}

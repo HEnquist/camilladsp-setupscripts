@@ -1,4 +1,5 @@
 ---
+release_version: 2.0.0
 camilladsp_tag: v2.0.0
 camillagui_tag: v2.0.0
 pycamilladsp_tag: v2.0.0

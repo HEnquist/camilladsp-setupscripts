@@ -23,11 +23,37 @@ jobs:
     - name: Render scripts from templates
       run: python build_release.py
 
-    - run: zip -r scripts.zip output/*
-    - name: Upload binaries to release
+    - name: Copy files to subdirs
+      run: |
+        mkdir output/sh
+        cp output/*.sh output/sh
+        cp output/*.yml output/sh
+        cp output/*.txt output/sh
+        cp output/*.toml output/sh
+        mkdir output/bat
+        cp output/*.bat output/bat
+        cp output/*.yml output/bat
+        cp output/*.txt output/bat
+        cp output/*.toml output/bat
+
+
+    - name: Archive for windows as zip
+      run: zip -r windows.zip output/bat/*
+    - name: Archive as tar for macos and linux
+      run: tar -zcvf linux_macos.tar.gz -C output/sh *
+
+    - name: Upload zip to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: scripts.zip
-        asset_name: scripts.zip
+        file: windows.zip
+        asset_name: windows.zip
+        tag: ${{ github.ref }}
+
+    - name: Upload tar to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: linux_macos.tar.gz
+        asset_name: linux_macos.tar.gz
         tag: ${{ github.ref }}

@@ -37,9 +37,11 @@ fi
 conda activate camillagui
 if [ $? -eq 0 ]; then
     echo "Updating existing environment"
+    cd $INSTALL_ROOT/gui
     conda env update -f cdsp_conda.yml --prune
 else
     echo "Creating new environment"
+    cd $INSTALL_ROOT/gui
     conda env create -f cdsp_conda.yml
     conda activate camillagui
 fi

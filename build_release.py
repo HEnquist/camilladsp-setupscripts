@@ -10,14 +10,11 @@ with open("versions.yml") as f:
 environment = Environment(loader=FileSystemLoader("templates/"))
 
 templates = [
-    "requirements.txt",
-    "cdsp_conda.yml",
     "full_install_venv.sh",
     "full_install_conda.sh",
     "full_install_poetry.sh",
     "full_install_venv.bat",
     "full_install_conda.bat",
-    "pyproject.toml",
 ]
 
 for template in templates:

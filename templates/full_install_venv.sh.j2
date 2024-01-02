@@ -14,6 +14,7 @@ else
 fi
 
 echo "Installing Python libraries"
+cd $INSTALL_ROOT/gui
 $VENV_PATH/bin/python -m pip install -r requirements.txt
 if [ $? -eq 0 ]; then
     echo "Libraries installed"

@@ -14,6 +14,7 @@ if !errorlevel!==0 (
 )
 
 echo Installing Python libraries
+cd %INSTALL_ROOT%\gui
 "%VENV_PATH%\Scripts\python.exe" -m pip install -r requirements.txt
 if !errorlevel!==0 (
     echo Libraries installed

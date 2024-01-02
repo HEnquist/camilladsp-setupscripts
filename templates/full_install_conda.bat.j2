@@ -30,9 +30,11 @@ call "%CONDA_ROOT%\Scripts\activate.bat"
 call "%CONDA_ROOT%\Scripts\activate.bat" camillagui
 if !errorlevel! equ 0 (
     echo Updating existing environment
+    cd %INSTALL_ROOT%\gui
     call conda env update -f cdsp_conda.yml --prune
 ) else (
     echo Creating new environment
+    cd %INSTALL_ROOT%\gui
     call conda env create -f cdsp_conda.yml
     call activate camillagui
 )

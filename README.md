@@ -1,12 +1,31 @@
 # Automated setup scrips for CamillaGUI
 
 ## Where are the scripts?
-Go to the latest version under "releases" and download the archive that suits your system (TODO!).
+Go to the latest version under "Releases". The scripts are added under "Assets".
+
+Download the script that suits your system.
+
+For linux and MacOS, the script needs to be made executable before it's possible to run it.
+Use `chmod` in the terminal, example:
+```sh
+chmod a+x full_install_venv.sh
+```
+
+It is also possible to execure the script directly:
+```sh
+curl -L { insert download link copied from Assets } | sh
+```
+Right-click the script under Assets and choose to copy the link.
+
+Example:
+```
+curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.0.0/full_install_venv.sh | sh
+```
 
 
 The repository does not contain any ready-to-use scripts.
 Instead it contains templates used to generate them.
-This process runs automatically for each release (TODO!),
+This process runs automatically for each release,
 and the generated scripts are attached to the release.
 
 

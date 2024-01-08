@@ -18,14 +18,18 @@ curl -L { insert download link copied from Assets } | sh
 Right-click the script under Assets and choose to copy the link.
 
 Example:
-```
+```sh
 curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.0.0/full_install_venv.sh | sh
 ```
 
+Or use the permanent link to the latest release:
+```sh
+curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/latest/download/full_install_venv.sh | sh
+```
 
-The repository does not contain any ready-to-use scripts.
+This repository itself does not contain any ready-to-use scripts.
 Instead it contains templates used to generate them.
-This process runs automatically for each release,
+This process runs automatically when a release is created,
 and the generated scripts are attached to the release.
 
 

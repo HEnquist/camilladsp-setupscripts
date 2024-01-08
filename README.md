@@ -1,13 +1,44 @@
 # Automated setup scrips for CamillaGUI
 
-Start by downloading the files in this repository. The easiest way is to download and uncompress [this .zip file](https://github.com/HEnquist/camilladsp-setupscripts/archive/refs/heads/master.zip).
+## Where are the scripts?
+Go to the latest version under "Releases". The scripts are added under "Assets".
+
+Download the script that suits your system.
+
+For linux and MacOS, the script needs to be made executable before it's possible to run it.
+Use `chmod` in the terminal, example:
+```sh
+chmod a+x full_install_venv.sh
+```
+
+It is also possible to execure the script directly:
+```sh
+curl -L { insert download link copied from Assets } | sh
+```
+Right-click the script under Assets and choose to copy the link.
+
+Example:
+```sh
+curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.0.0/full_install_venv.sh | sh
+```
+
+Or use the permanent link to the latest release:
+```sh
+curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/latest/download/full_install_venv.sh | sh
+```
+
+This repository itself does not contain any ready-to-use scripts.
+Instead it contains templates used to generate them.
+This process runs automatically when a release is created,
+and the generated scripts are attached to the release.
+
 
 ## Choose Python package manager
-Two different installer scripts are available,
-one using the [`conda`](#conda) package manager and one using python [`venv`](#venv).
+Three different installer scripts are available,
+one using the `conda` package manager, one using python `venv`, and one using `poetry`.
 
-Both options are available on Linux, Windows and MacOS,
-and both are suitable for running the CamillaDSP GUI.
+All options are available on Linux, Windows and MacOS,
+and all are suitable for running the CamillaDSP GUI.
 
 Reasons to choose conda:
 - conda is already installed.
@@ -17,132 +48,13 @@ Reasons to choose venv:
 - Python 3.8 or newer is already installed.
 - Minimizing disk space usage is important.
 
-After making a choice, follow the instructions in either the [Conda](#conda) or [venv](#venv) section.
+Reasons to choose poetry:
+- Convenient, the environment is created automatically.
 
-### Conda
-
-The conda script can use Anaconda, miniconda or miniforge. A new conda environment named "camillagui" will be created.
-
-#### Install
-Ensure that conda is installed. Any distribution will suffice.
-- [Miniforge](https://github.com/conda-forge/miniforge) - Community-driven minimal installer.
-- [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) - Minimal installer by Anaconda.
-- [Anaconda](https://www.anaconda.com/download) - Full Anaconda distribution. Much larger than needed, only use if already installed.
-
-The script sets up the conda environment and the gui. It also downloads the matching version of CamillaDSP, selecting the Arm or Intel version automatically.
-
-If the environment already exists, it will be updated with the new versions. If you for some reason want to keep the existing setup, then make a clone of the environment and give it a new name:
-```sh
-conda create --name camillagui_backup --clone  camillagui
-```
-
-Open a terminal, and navigate to the folder where the setup scripts are located. Run the install script:
-```sh
-./install_conda.sh
-```
-
-The script creates the directory `camilladsp` in the user home directory,
-with the following subdirectories:
-- `bin`: The CamillaDSP executable is placed here
-- `coeffs`: For FIR coefficient files
-- `configs`: For config files
-- `gui`: The gui
-
-Check the gui default configuration (camilladsp/gui/config/camillagui.yml)
-and edit as needed.
-
-
-#### Starting the gui
-
-First [start camilladsp](#start-camilladsp) if it's not already running.
-
-Change to the "camilladsp/gui" folder, and run the backend. 
-
-Linux or MacOS. Also Windows using the Miniforge/Miniconda/Anaconda PowerShell:
-```sh
-cd ~/camilladsp/gui
-conda run -n camillagui python main.py
-```
-
-Windows Command Prompt (use the Miniforge/Miniconda/Anaconda Prompt):
-```sh
-cd %userprofile%\camilladsp\gui
-conda run -n camillagui python main.py
-```
-
-The first part, `conda run -n {env} {commmand}` makes conda run `{command}` in the environment `{env}`.
-
-The gui should now be available at http://localhost:5000
-
-Note that it is also possible to manually activate the environment before starting the gui:
-```sh
-conda activate camillagui
-cd ~/camilladsp/gui
-python main.py
-```
-
-
-### venv
-
-This uses the `venv` module that is part of the standard library in Python.
-Python 3.8 or later is required.
-
-#### Install
-The script creates a new virtual environment and downloads the gui. It also downloads the matching version of CamillaDSP, selecting the Arm or Intel version automatically.
-
-If the environment already exists, it will be updated with the new versions.
-
-Open a terminal, and navigate to the folder where the setup scripts are located.
-Then run the install script.
-
-On Linux or MacOS:
-```sh
-./install_venv.sh
-```
-
-On Windows (Command Prompt or PowerShell):
-```sh
-install_venv.bat
-```
-
-The script creates the directory `camilladsp` in the user home directory,
-with the following subdirectories:
-- `bin`: The CamillaDSP executable is placed here
-- `camillagui_venv`: The Python virtual environment
-- `coeffs`: For FIR coefficient files
-- `configs`: For config files
-- `gui`: The gui
-
-Check the gui default configuration (camilladsp/gui/config/camillagui.yml)
-and edit as needed.
-
-#### Starting the gui
-
-First [start camilladsp](#start-camilladsp) if it's not already running.
-
-Change to the "camilladsp/gui" folder, and run the backend.
-The virtual environment is activated by simply using
-the python executable of the environment.
-
-Linux or MacOS:
-```sh
-cd ~/camilladsp/gui
-~/camilladsp/camillagui_venv/bin/python main.py
-```
-
-Windows PowerShell:
-```sh
-cd ~\camilladsp\gui
-~\camilladsp\camillagui_venv\Scripts\python.exe main.py
-```
-
-Windows Command Prompt:
-```sh
-cd %userprofile%\camilladsp\gui
-%userprofile%\camilladsp\camillagui_venv\Scripts\python.exe main.py
-```
-
-The gui should now be available at http://localhost:5005
+After making a choice, follow the instructions in the separate READMEs.
+- [conda](README_conda.md)
+- [venv](README_venv.md)
+- [poetry](README_poetry.md)
 
 
 ## Start CamillaDSP
@@ -169,7 +81,14 @@ Windows Command Prompt:
 ```
 
 # Setup of USB gadget mode
-**NOTE** This is currently not updated for the latest versions of CamillDSP and Raspberry Pi OS.
+**NOTE** This is currently not updated for the latest versions of CamillaDSP and Raspberry Pi OS.
 
 The `install_gadget_gui.sh` script installs camilladsp with the GUI,
 as well as configures the USB gadget mode on a Raspberry Pi.
+
+# Development: render the templates
+This repository contains jinja2 templates used to create automated setup scripts for CamillaGUI.
+The templates are stored in `templates/`.
+
+To render the templates, run the Python script `build_release.py`.
+When rendering, the versions of the various components are taken from the file `versions.yml`.

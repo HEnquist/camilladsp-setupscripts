@@ -1,0 +1,22 @@
+{# Full setup on Linux and MacOS using poetry -#}
+{% extends "full_install_base.sh.j2" %}
+
+{% block setup_python_env %}
+if ! command -v poetry &> /dev/null
+then
+    echo "poetry is not available, please install it and try again."
+    exit 1
+fi
+
+echo "Running 'poetry update' to create or update environment"
+cd $INSTALL_ROOT/gui
+poetry update
+
+echo ""
+echo "Basic setup ready."
+echo "Edit the gui config file at:"
+echo "$INSTALL_ROOT/gui/config/camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd $INSTALL_ROOT/gui"
+echo "> poetry run python main.py"
+{% endblock setup_python_env %}

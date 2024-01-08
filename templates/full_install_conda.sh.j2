@@ -1,0 +1,56 @@
+{# Full setup on Linux and MacOS using conda -#}
+{% extends "full_install_base.sh.j2" %}
+
+{% block setup_python_env %}
+if [ -z $CONDA_PREFIX ]; then
+    echo "CONDA_PREFIX environment variable is not set, looking for conda in standard locations"
+    if [ -f ~/opt/anaconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user Anaconda at ~/opt/anaconda3"
+        . ~/opt/anaconda3/etc/profile.d/conda.sh
+    elif [ -f ~/anaconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user Anaconda at ~/anaconda3"
+        . ~/anaconda3/etc/profile.d/conda.sh
+    elif [ -f /opt/anaconda3/etc/profile.d/conda.sh ]; then
+        echo "Using system Anaconda at /opt/anaconda3"
+        . /opt/anaconda3/etc/profile.d/conda.sh
+    elif [ -f ~/opt/miniconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user miniconda at ~/opt/miniconda3"
+        . ~/opt/miniconda3/etc/profile.d/conda.sh
+    elif [ -f ~/miniconda3/etc/profile.d/conda.sh ]; then
+        echo "Using user miniconda at ~/miniconda3"
+        . ~/miniconda3/etc/profile.d/conda.sh
+    elif [ -f ~/opt/miniforge3/etc/profile.d/conda.sh ]; then
+        echo "Using user miniforge at ~/opt/miniforge3"
+        . ~/opt/miniforge3/etc/profile.d/conda.sh
+    elif [ -f ~/miniforge3/etc/profile.d/conda.sh ]; then
+        echo "Using user miniforge at ~/miniforge3"
+        . ~/miniforge3/etc/profile.d/conda.sh
+    else
+        echo "No conda found!"
+        exit 1
+    fi
+else
+    echo "Using conda from $CONDA_PREFIX"
+    . $CONDA_PREFIX/etc/profile.d/conda.sh
+fi
+
+conda activate camillagui
+if [ $? -eq 0 ]; then
+    echo "Updating existing environment"
+    cd $INSTALL_ROOT/gui
+    conda env update -f cdsp_conda.yml --prune
+else
+    echo "Creating new environment"
+    cd $INSTALL_ROOT/gui
+    conda env create -f cdsp_conda.yml
+    conda activate camillagui
+fi
+
+echo ""
+echo "Basic setup ready."
+echo "Edit the gui config file at:"
+echo "$INSTALL_ROOT/gui/config/camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd $INSTALL_ROOT/gui"
+echo "> conda run -n camillagui python main.py"
+{% endblock setup_python_env %}

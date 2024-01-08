@@ -1,0 +1,49 @@
+{# Full setup on Windows using conda -#}
+{% extends "full_install_base.bat.j2" %}
+
+{% block setup_python_env %}
+if not "%CONDA_PREFIX%"=="" (
+    echo Using conda from %CONDA_PREFIX%
+    set "CONDA_ROOT=%CONDA_PREFIX%"
+) else (
+    echo CONDA_PREFIX environment variable is not set, looking for conda in standard locations
+    if exist %USERPROFILE%\miniforge3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\miniforge3"     
+    ) else if exist %USERPROFILE%\miniconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\miniconda3"
+    ) else if exist %USERPROFILE%\Anaconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%USERPROFILE%\Anaconda3"
+    ) else if exist %ProgramData%\miniforge3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\miniforge3"  
+    ) else if exist %ProgramData%\miniconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\miniconda3" 
+    ) else if exist %ProgramData%\Anaconda3\Scripts\activate.bat (
+        set "CONDA_ROOT=%ProgramData%\Anaconda3"     
+    ) else (
+        echo No conda found!
+        exit /b 1
+    )
+)
+echo Using conda found at !CONDA_ROOT!
+
+call "%CONDA_ROOT%\Scripts\activate.bat"
+call "%CONDA_ROOT%\Scripts\activate.bat" camillagui
+if !errorlevel! equ 0 (
+    echo Updating existing environment
+    cd %INSTALL_ROOT%\gui
+    call conda env update -f cdsp_conda.yml --prune
+) else (
+    echo Creating new environment
+    cd %INSTALL_ROOT%\gui
+    call conda env create -f cdsp_conda.yml
+    call activate camillagui
+)
+
+echo.
+echo "Basic setup ready."
+echo "Edit the gui config file at:"
+echo "%INSTALL_ROOT%\gui\config\camillagui.yml"
+echo "as required. Then start the gui with:"
+echo "> cd %INSTALL_ROOT%\gui"
+echo "> conda run -n camillagui python main.py"
+{% endblock setup_python_env %}

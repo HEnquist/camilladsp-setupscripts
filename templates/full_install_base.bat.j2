@@ -15,6 +15,9 @@ if not exist "%INSTALL_ROOT%\configs" mkdir "%INSTALL_ROOT%\configs"
 if not exist "%INSTALL_ROOT%\coeffs" mkdir "%INSTALL_ROOT%\coeffs"
 if not exist "%INSTALL_ROOT%\bin" mkdir "%INSTALL_ROOT%\bin"
 if not exist "%INSTALL_ROOT%\gui" mkdir "%INSTALL_ROOT%\gui"
+if not exist "%INSTALL_ROOT%\temp" mkdir "%INSTALL_ROOT%\temp"
+
+cd %INSTALL_ROOT%\temp
 
 echo --- Download Camillagui
 if exist camillagui.zip (
@@ -57,5 +60,7 @@ echo Assuming Python environment is already set up
 
 echo.
 echo All done!
+echo Some temporary files were stored in %INSTALL_ROOT%\temp
+echo These are no longer needed and can be deleted.
 
 endlocal

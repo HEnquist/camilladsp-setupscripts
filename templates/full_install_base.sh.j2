@@ -88,6 +88,14 @@ if [ $? -ne 0 ]; then
     echo "Failed to create gui dir"
     exit 1
 fi
+mkdir -p "$INSTALL_ROOT/temp"
+if [ $? -ne 0 ]; then
+    echo "Failed to create temp dir"
+    exit 1
+fi
+
+# Switch to temp dir for downloads
+cd $INSTALL_ROOT/temp
 
 echo "--- Download Camillagui"
 if [ -f camillagui.zip ]; then
@@ -130,19 +138,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 echo "--- Uncompress CamillaDSP binary"
-if [ -f camilladsp ]; then
+if [ -f $INSTALL_ROOT/bin/camilladsp ]; then
     echo "Deleting existing camilladsp binary"
-    rm camilladsp
+    rm $INSTALL_ROOT/bin/camilladsp
 fi
-tar -xvf $ARCHIVE_NAME
+tar -xvf $ARCHIVE_NAME -C $INSTALL_ROOT/bin
 if [ $? -ne 0 ]; then
     echo "Failed to uncompress binary"
-    exit 1
-fi
-echo "--- Moving CamillaDSP binary to $INSTALL_ROOT/bin/"
-mv camilladsp "$INSTALL_ROOT/bin/"
-if [ $? -ne 0 ]; then
-    echo "Failed to move binary"
     exit 1
 fi
 
@@ -152,4 +154,5 @@ echo "Assuming Python environment is already set up"
 
 echo ""
 echo "All done!"
-
+echo "Some temporary files were stored in $INSTALL_ROOT/temp"
+echo "These are no longer needed and can be deleted."

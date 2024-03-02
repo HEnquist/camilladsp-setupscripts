@@ -19,7 +19,7 @@ Right-click the script under Assets and choose to copy the link.
 
 Example:
 ```sh
-curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.0.0/full_install_venv.sh | sh
+curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.1.0/full_install_venv.sh | sh
 ```
 
 Or use the permanent link to the latest release:

@@ -110,7 +110,7 @@ fi
 echo "--- Uncompress Camillagui to $INSTALL_ROOT/gui"
 if command -v unar &> /dev/null
 then
-    unar -f camillagui.zip -o "$INSTALL_ROOT/gui -D"
+    unar -f -D -o "$INSTALL_ROOT/gui" camillagui.zip
     if [ $? -ne 0 ]; then
         echo "Failed to uncompress gui"
         exit 1

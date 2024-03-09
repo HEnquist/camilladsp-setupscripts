@@ -17,7 +17,7 @@ curl -L { insert download link copied from Assets } | sh
 ```
 Right-click the script under Assets and choose to copy the link.
 
-Example:
+Example, run the script from release 2.1.0:
 ```sh
 curl -L https://github.com/HEnquist/camilladsp-setupscripts/releases/download/v2.1.0/full_install_venv.sh | sh
 ```

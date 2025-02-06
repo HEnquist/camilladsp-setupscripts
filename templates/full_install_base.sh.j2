@@ -68,17 +68,17 @@ else
 fi
 
 echo "--- Create folders"
-mkdir -p $INSTALL_ROOT/configs
+mkdir -p "$INSTALL_ROOT/configs"
 if [ $? -ne 0 ]; then
     echo "Failed to create config dir"
     exit 1
 fi
-mkdir -p $INSTALL_ROOT/coeffs
+mkdir -p "$INSTALL_ROOT/coeffs"
 if [ $? -ne 0 ]; then
     echo "Failed to create coeffs dir"
     exit 1
 fi
-mkdir -p $INSTALL_ROOT/bin
+mkdir -p "$INSTALL_ROOT/bin"
 if [ $? -ne 0 ]; then
     echo "Failed to create bin dir"
     exit 1
@@ -95,7 +95,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Switch to temp dir for downloads
-cd $INSTALL_ROOT/temp
+cd "$INSTALL_ROOT/temp"
 
 echo "--- Download Camillagui"
 if [ -f camillagui.zip ]; then
@@ -138,11 +138,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 echo "--- Uncompress CamillaDSP binary"
-if [ -f $INSTALL_ROOT/bin/camilladsp ]; then
+if [ -f "$INSTALL_ROOT/bin/camilladsp" ]; then
     echo "Deleting existing camilladsp binary"
-    rm $INSTALL_ROOT/bin/camilladsp
+    rm "$INSTALL_ROOT/bin/camilladsp"
 fi
-tar -xvf $ARCHIVE_NAME -C $INSTALL_ROOT/bin
+tar -xvf $ARCHIVE_NAME -C "$INSTALL_ROOT/bin"
 if [ $? -ne 0 ]; then
     echo "Failed to uncompress binary"
     exit 1

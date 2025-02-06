@@ -9,7 +9,7 @@ then
 fi
 
 echo "Running 'poetry update' to create or update environment"
-cd $INSTALL_ROOT/gui
+cd "$INSTALL_ROOT/gui"
 poetry update
 
 echo ""
@@ -17,6 +17,6 @@ echo "Basic setup ready."
 echo "Edit the gui config file at:"
 echo "$INSTALL_ROOT/gui/config/camillagui.yml"
 echo "as required. Then start the gui with:"
-echo "> cd $INSTALL_ROOT/gui"
+echo "> cd \"$INSTALL_ROOT/gui\""
 echo "> poetry run python main.py"
 {% endblock setup_python_env %}

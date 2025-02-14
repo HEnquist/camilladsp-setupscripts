@@ -97,7 +97,7 @@ fi
 # Switch to temp dir for downloads
 cd "$INSTALL_ROOT/temp"
 
-echo "--- Download Camillagui"
+echo "--- Download Camillagui {{ camillagui_tag }}"
 if [ -f camillagui.zip ]; then
     rm camillagui.zip
 fi
@@ -127,7 +127,7 @@ else
     exit 1
 fi
 
-echo "--- Download CamillaDSP binary"
+echo "--- Download CamillaDSP binary {{ camilladsp_tag }}"
 if [ -f $ARCHIVE_NAME ]; then
     echo "Deleting existing camilladsp archive"
     rm $ARCHIVE_NAME

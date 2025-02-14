@@ -19,7 +19,7 @@ if not exist "%INSTALL_ROOT%\temp" mkdir "%INSTALL_ROOT%\temp"
 
 cd %INSTALL_ROOT%\temp
 
-echo --- Download Camillagui
+echo --- Download Camillagui {{ camillagui_tag }}
 if exist camillagui.zip (
     del camillagui.zip
 )
@@ -36,7 +36,7 @@ if !errorlevel! neq 0 (
     exit /b 1
 )
 
-echo --- Download CamillaDSP binary
+echo --- Download CamillaDSP binary {{ camilladsp_tag }}
 if exist %ARCHIVE_NAME% (
     echo Deleting existing camilladsp archive
     del %ARCHIVE_NAME%

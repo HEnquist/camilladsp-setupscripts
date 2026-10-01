@@ -1,5 +1,14 @@
 # Automated setup scrips for CamillaGUI
 
+> [!IMPORTANT]
+> This repository is archived and the scripts are no longer maintained.
+> The last release installs CamillaDSP 3.0 and a matching old version of the GUI.
+>
+> Use the bundles published with the GUI backend instead.
+> They contain the backend, the frontend and a complete Python environment,
+> so there is nothing else to install.
+> See [Download a complete bundle](https://github.com/HEnquist/camillagui-backend#download-a-complete-bundle).
+
 ## Where are the scripts?
 Go to the latest version under "Releases". The scripts are added under "Assets".
 
